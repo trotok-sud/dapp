@@ -15,9 +15,7 @@ async function waitForTronLink() {
 async function initApp() {
   const tronWeb = await waitForTronLink();
 
-  const abi = await fetch("contract_abi.json").then((res) => res.json());
-  contract = await tronWeb.contract(abi, CONTRACT_ADDRESS);
-
+  contract = await tronWeb.contract(CONTRACT_ABI, CONTRACT_ADDRESS);
   const userAddress = tronWeb.defaultAddress.base58;
   document.getElementById("wallet-address").innerText = userAddress;
 
