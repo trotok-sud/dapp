@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>USDTF dApp</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tronweb3/tronwallet-adapter/dist/tronweb.min.js"></script>
+  <script src="app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tronweb@latest/dist/TronWeb.js"></script>
+
 </head>
+
 <body>
   <div class="container">
     <h1>USDTF Token Dashboard</h1>
@@ -16,10 +21,26 @@
     <input id="amount" placeholder="Amount" />
     <button onclick="transferTokens()">Send</button>
     <p id="txStatus"></p>
+    <p>Your Address: <span id="address"></span></p>
+    <p>Your Balance: <span id="balance">Loading...</span></p>
+
+    <input type="text" id="to" placeholder="Recipient Address">
+    <input type="number" id="amount" placeholder="Amount">
+    <button onclick="transfer()">Send USDTF</button>
+
+    <body>
+      <h1>USDTF dApp</h1>
+      <p id="wallet-address">Not connected</p>
+      <p id="trx-balance">TRX Balance: --</p>
+
+      <script src="https://cdn.jsdelivr.net/npm/@tronweb3/tronwallet-adapter/dist/tronweb.min.js"></script>
+      <script src="app.js"></script>
+    </body>
+
   </div>
 
   <script src="abi.js"></script>
   <script src="script.js"></script>
 </body>
-</html>
 
+</html>
