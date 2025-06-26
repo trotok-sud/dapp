@@ -46,5 +46,21 @@ async function transfer() {
     document.getElementById("txStatus").innerText = "Transfer failed.";
   }
 }
+async function checkBalance() {
+  const address = document.getElementById("check-address").value.trim();
+  if (!tronWeb.isAddress(address)) {
+    alert("Invalid address");
+    return;
+  }
+
+  try {
+    const balance = await contract.balanceOf(address).call();
+    document.getElementById("check-result").innerText = (balance / 1e6).toFixed(2) + " USDTF";
+  } catch (err) {
+    console.error(err);
+    document.getElementById("check-result").innerText = "Error fetching balance";
+  }
+}
+
 
 window.addEventListener("load", initApp);

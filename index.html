@@ -2,31 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>USDTF dApp</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- TronWeb & TronLink integration -->
   <script src="https://cdn.jsdelivr.net/npm/tronweb@latest/dist/TronWeb.js"></script>
 </head>
+
 <body>
   <div class="container">
     <h1>USDTF Token Dashboard</h1>
 
-    <!-- Wallet Info -->
+    <!-- Connected Wallet Info -->
     <p><strong>Your Wallet:</strong> <span id="wallet-address">Not connected</span></p>
     <p><strong>TRX Balance:</strong> <span id="trx-balance">--</span></p>
-    <p><strong>USDTF Balance:</strong> <span id="token-balance">--</span></p>
+    <p><strong>USDTF Balance:</strong> <span id="balance">Loading...</span></p>
 
-    <!-- Send Tokens -->
+    <!-- Send USDTF Tokens -->
     <h3>Send USDTF Tokens</h3>
-    <input type="text" id="to" placeholder="Recipient Address" />
-    <input type="number" id="amount" placeholder="Amount" />
-    <button onclick="transfer()">Send</button>
+    <input id="to" type="text" placeholder="Recipient Address" />
+    <input id="amount" type="number" placeholder="Amount" />
+    <button onclick="transfer()">Send USDTF</button>
     <p id="txStatus"></p>
+
+    <!-- Check Any Wallet's Balance -->
+    <h3>Check Token Balance of Any Wallet</h3>
+    <input type="text" id="check-address" placeholder="Enter wallet address" />
+    <button onclick="checkBalance()">Check Balance</button>
+    <p><strong>Wallet Balance:</strong> <span id="check-result">-</span></p>
   </div>
 
-  <!-- dApp Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/@tronweb3/tronwallet-adapter/dist/tronweb.min.js"></script>
+  <!-- Scripts -->
   <script src="app.js"></script>
 </body>
 </html>
