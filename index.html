@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>USDTF dApp</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/tronweb@latest/dist/TronWeb.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>USDTF Token Dashboard</h1>
+    <p><strong>Address:</strong> <span id="userAddress">-</span></p>
+    <p><strong>Balance:</strong> <span id="balance">Loading...</span></p>
+
+    <h3>Send Tokens</h3>
+    <input id="recipient" placeholder="Recipient address" />
+    <input id="amount" placeholder="Amount" />
+    <button onclick="transferTokens()">Send</button>
+    <p id="txStatus"></p>
+  </div>
+
+  <script src="abi.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
