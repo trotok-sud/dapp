@@ -1,4 +1,4 @@
-const CONTRACT_ADDRESS = "TXf6VxedZiDsE1NoMcAE3vKnh6fdjppoG3"; // Replace with your actual contract
+// app.js
 let contract = null;
 
 async function waitForTronLink() {
@@ -16,6 +16,7 @@ async function initApp() {
   const tronWeb = await waitForTronLink();
 
   contract = await tronWeb.contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+
   const userAddress = tronWeb.defaultAddress.base58;
   document.getElementById("wallet-address").innerText = userAddress;
 
@@ -44,6 +45,7 @@ async function transfer() {
     document.getElementById("txStatus").innerText = "Transfer failed.";
   }
 }
+
 async function checkBalance() {
   const address = document.getElementById("check-address").value.trim();
   if (!tronWeb.isAddress(address)) {
@@ -59,6 +61,5 @@ async function checkBalance() {
     document.getElementById("check-result").innerText = "Error fetching balance";
   }
 }
-
 
 window.addEventListener("load", initApp);
