@@ -24,7 +24,7 @@ async function initApp() {
   document.getElementById("trx-balance").innerText = (trxBalance / 1e6).toFixed(2) + " TRX";
 
   const tokenBalance = await contract.balanceOf(userAddress).call();
-  document.getElementById("token-balance").innerText = (tokenBalance / 1e6).toFixed(2) + " USDTF";
+  document.getElementById("balance").innerText = (tokenBalance / 1e6).toFixed(2) + " USDTF";
 }
 
 async function transfer() {
