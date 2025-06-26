@@ -1,51 +1,50 @@
-const CONTRACT_ADDRESS = "TXf6VxedZiDsE1NoMcAE3vKnh6fdjppoG3"; // replace with your deployed contract address
+const CONTRACT_ADDRESS = "TXf6VxedZiDsE1NoMcAE3vKnh6fdjppoG3"; // Replace with your actual contract
 let contract = null;
 
-async function waitForTronWeb() {
+async function waitForTronLink() {
   return new Promise((resolve) => {
-    const checkInterval = setInterval(() => {
+    const check = setInterval(() => {
       if (window.tronWeb && window.tronWeb.defaultAddress.base58) {
-        clearInterval(checkInterval);
+        clearInterval(check);
         resolve(window.tronWeb);
       }
-    }, 200);
+    }, 300);
   });
 }
 
-async function connectAndInit() {
-  const tronWeb = await waitForTronWeb();
-  const address = tronWeb.defaultAddress.base58;
+async function initApp() {
+  const tronWeb = await waitForTronLink();
 
-  document.getElementById("wallet-address").innerText = "Connected: " + address;
-
-  const trxBalance = await tronWeb.trx.getBalance(address);
-  document.getElementById("trx-balance").innerText = "TRX Balance: " + (trxBalance / 1e6).toFixed(2);
-
-  const abi = await fetch("contract_abi.json").then(res => res.json());
+  const abi = await fetch("contract_abi.json").then((res) => res.json());
   contract = await tronWeb.contract(abi, CONTRACT_ADDRESS);
 
-  await loadTokenBalance();
-}
+  const userAddress = tronWeb.defaultAddress.base58;
+  document.getElementById("wallet-address").innerText = userAddress;
 
-async function loadTokenBalance() {
-  if (!contract) return;
-  const address = tronWeb.defaultAddress.base58;
-  const balance = await contract.balanceOf(address).call();
-  document.getElementById("token-balance").innerText = "USDTF Balance: " + (balance / 1e6).toFixed(2);
+  const trxBalance = await tronWeb.trx.getBalance(userAddress);
+  document.getElementById("trx-balance").innerText = (trxBalance / 1e6).toFixed(2) + " TRX";
+
+  const tokenBalance = await contract.balanceOf(userAddress).call();
+  document.getElementById("token-balance").innerText = (tokenBalance / 1e6).toFixed(2) + " USDTF";
 }
 
 async function transfer() {
   const to = document.getElementById("to").value;
   const amount = parseFloat(document.getElementById("amount").value) * 1e6;
 
+  if (!to || isNaN(amount)) {
+    alert("Please fill in both address and amount.");
+    return;
+  }
+
   try {
     const result = await contract.transfer(to, amount).send();
-    alert("Transfer successful! TX: " + result);
-    await loadTokenBalance();
+    document.getElementById("txStatus").innerText = "Transfer successful! TX: " + result;
+    initApp(); // Refresh balance
   } catch (err) {
     console.error(err);
-    alert("Transfer failed.");
+    document.getElementById("txStatus").innerText = "Transfer failed.";
   }
 }
 
-window.addEventListener("load", connectAndInit);
+window.addEventListener("load", initApp);
